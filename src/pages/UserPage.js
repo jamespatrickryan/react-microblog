@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import Body from '../components/Body';
 import Posts from '../components/Posts';
 import TimeAgo from '../components/TimeAgo';
-import { useApi } from '../contexts/ApiMainstay';
+import { useApi } from '../contexts/ApiProvider';
 
 export default function UserPage() {
   const [user, setUser] = useState();

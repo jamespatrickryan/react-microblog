@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
-import { useApi } from '../contexts/ApiMainstay';
+import { useApi } from '../contexts/ApiProvider';
 import Post from './Post';
 import More from './More';
 
