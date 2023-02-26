@@ -37,7 +37,7 @@ export default function Posts({ content }) {
 
   const next = async () => {
     const response = await api.get(url, {
-      after: posts[posts.length - 1].timestamp
+      after: posts[posts.length - 1].timestamp,
     });
     if (response.ok) {
       setPosts([...posts, ...response.body.data]);

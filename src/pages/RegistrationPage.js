@@ -24,12 +24,12 @@ export default function RegistrationPage() {
   const onSubmit = async (event) => {
     event.preventDefault();
     if (passwordField.current.value !== confirmField.current.value) {
-      setFormErrors({confirm: 'Passwords do not match.'});
+      setFormErrors({confirm: 'Passwords do not match.',});
     } else {
       const data = await api.post('/users', {
         username: usernameField.current.value,
         email: emailField.current.value,
-        password: passwordField.current.value
+        password: passwordField.current.value,
       });
 
       if (!data.ok) {
