@@ -73,6 +73,7 @@ export default function LoginPage() {
         </Button>
       </Form>
       <hr />
+      <p><Link to="/reset-request">Forgot password?</Link></p>
       <p>For new users, register <Link to="/register">here</Link>.</p>
     </Body>
   );
