@@ -13,11 +13,11 @@ import { useFlash } from '../contexts/FlashProvider';
 
 export default function UserPage() {
   const [user, setUser] = useState();
-  const [isFollower, setIsFollower] = useState();
+  const [isFollowing, setIsFollowing] = useState();
   const { username } = useParams();
   const navigate = useNavigate();
   const api = useApi();
-  const { user: loggedInUser } = useUser();
+  const { user: you } = useUser();
   const flash = useFlash();
 
   useEffect(() => {
@@ -25,21 +25,21 @@ export default function UserPage() {
       const response = await api.get(`/users/${username}`);
       if (response.ok) {
         setUser(response.body);
-        if (response.body.username !== loggedInUser.username) {
+        if (response.body.username !== you.username) {
           const follower = await api.get(`/me/following/${response.body.id}`);
           if (follower.status === 204) {
-            setIsFollower(true);
+            setIsFollowing(true);
           } else if (follower.status === 404) {
-            setIsFollower(false);
+            setIsFollowing(false);
           }
         } else {
-          setIsFollower(null);
+          setIsFollowing(null);
         }
       } else {
-        setUser(undefined);
+        setUser(null);
       }
     })();
-  }, [username, api, loggedInUser]);
+  }, [username, api, you]);
 
   const edit = () => {
     navigate('/edit');
@@ -54,7 +54,7 @@ export default function UserPage() {
         </>,
         'success'
       );
-      setIsFollower(true);
+      setIsFollowing(true);
     }
   };
 
@@ -67,7 +67,7 @@ export default function UserPage() {
         </>,
         'success'
       );
-      setIsFollower(false);
+      setIsFollowing(false);
     }
   };
 
@@ -92,17 +92,17 @@ export default function UserPage() {
                     Last seen: <TimeAgo isoDate={user.last_seen} />
                   </p>
 
-                  {isFollower === null &&
+                  {isFollowing === null &&
                     <Button variant="primary" onClick={edit}>
                       Edit profile
                     </Button>
                   }
-                  {isFollower === false &&
+                  {isFollowing === false &&
                     <Button variant="primary" onClick={follow}>
                       Follow
                     </Button>
                   }
-                  {isFollower === true &&
+                  {isFollowing &&
                     <Button variant="primary" onClick={unfollow}>
                       Unfollow
                     </Button>
