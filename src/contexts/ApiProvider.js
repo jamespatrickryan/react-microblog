@@ -7,11 +7,11 @@ const ApiContext = createContext();
 export default function ApiProvider({ children }) {
   const flash = useFlash();
 
-  const error = useCallback(() => {
+  const onError = useCallback(() => {
     flash('An unexpected error has occurred. Please try again later.', 'danger');
   }, [flash]);
 
-  const api = useMemo(() => new MicroblogApiClient(error), [error]);
+  const api = useMemo(() => new MicroblogApiClient(onError), [onError]);
 
   return (
     <ApiContext.Provider value={api}>

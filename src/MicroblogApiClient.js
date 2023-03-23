@@ -1,8 +1,8 @@
 const BASE_API_URL = process.env.REACT_APP_BASE_API_URL;
 
 export default class MicroblogApiClient {
-  constructor(error) {
-    this.error = error;
+  constructor(onError) {
+    this.onError = onError;
     this.url = `${BASE_API_URL}/api`;
   }
 
@@ -19,8 +19,8 @@ export default class MicroblogApiClient {
       }
     }
 
-    if (response.status >= 500 && this.error) {
-      this.error(response);
+    if (response.status >= 500 && this.onError) {
+      this.onError(response);
     }
 
     return response;
